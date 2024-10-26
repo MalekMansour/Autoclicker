@@ -6,10 +6,10 @@ import time
 import ctypes
 
 # Set up low-level access for mouse events
-SetCursorPos = ctypes.windll.user32.SetCursorPos
+SetCursorPos = ctypes.windll.user32.SetCursorPosse
 mouse_event = ctypes.windll.user32.mouse_event
 MOUSEEVENTF_LEFTDOWN = 0x0002  # Left button down
-MOUSEEVENTF_LEFTUP = 0x0004    # Left button up
+MOUSEEVENTF_LEFTUP = 0x0004    # Left bustton up
 
 class AutoClicker:
     def __init__(self, root):

@@ -52,6 +52,9 @@ class AutoClicker:
         root.bind(f"<KeyPress-{self.start_hotkey.get()}>", lambda e: self.start_clicking())
         root.bind(f"<KeyPress-{self.stop_hotkey.get()}>", lambda e: self.stop_clicking())
 
+        # Emergency quit hotkey: Shift+Q
+        root.bind("<Shift-KeyPress-Q>", lambda e: self.emergency_quit())
+
     def click_mouse(self):
         interval = 1 / self.clicks_per_second.get()  # Calculate interval from clicks per second
         while self.running:
@@ -77,6 +80,11 @@ class AutoClicker:
         self.root.bind(f"<KeyPress-{self.stop_hotkey.get()}>", lambda e: self.stop_clicking())
         print(f"Start hotkey set to '{self.start_hotkey.get()}'")
         print(f"Stop hotkey set to '{self.stop_hotkey.get()}'")
+
+    def emergency_quit(self):
+        """Immediately exits the program."""
+        self.running = False
+        self.root.quit()
 
 # Run the Tkinter GUI
 root = tk.Tk()

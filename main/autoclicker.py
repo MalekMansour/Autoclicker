@@ -1,3 +1,5 @@
+# Author: Malek Mansour
+
 import tkinter as tk
 import threading
 import time

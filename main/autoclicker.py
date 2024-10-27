@@ -8,10 +8,10 @@ import ctypes
 # Low-level access for mouse events
 SetCursorPos = ctypes.windll.user32.SetCursorPos
 mouse_event = ctypes.windll.user32.mouse_event
-MOUSEEVENTF_LEFTDOWN = 0x0002  # Left button down
-MOUSEEVENTF_LEFTUP = 0x0004    # Left button up
-MOUSEEVENTF_RIGHTDOWN = 0x0008  # Right button down
-MOUSEEVENTF_RIGHTUP = 0x0010    # Right button up
+MOUSEEVENTF_LEFTDOWN = 0x0002  
+MOUSEEVENTF_LEFTUP = 0x0004   
+MOUSEEVENTF_RIGHTDOWN = 0x0008  
+MOUSEEVENTF_RIGHTUP = 0x0010    
 
 class AutoClicker:
     def __init__(self, root):

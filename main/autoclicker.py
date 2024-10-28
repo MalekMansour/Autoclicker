@@ -55,6 +55,19 @@ class AutoClicker:
         # Emergency quit hotkey: Shift+Q
         root.bind("<Shift-KeyPress-Q>", lambda e: self.emergency_quit())
 
+        # Overlay window for status display
+        self.status_window = tk.Toplevel(root)
+        self.status_window.overrideredirect(True)  # Remove window decorations
+        self.status_window.attributes("-topmost", True)  # Keep it on top
+        self.status_window.geometry("150x30+10+10")  # Position in top-left corner
+        self.status_window.configure(bg="black")
+        
+        # Status label with default setting
+        self.status_label = tk.Label(self.status_window, text="Autoclicker: Off", font=("Arial", 12),
+                                     bg="black", fg="lime")
+        self.status_label.pack()
+        self.status_window.withdraw()  # Hide initially
+
     def click_mouse(self):
         interval = 1 / self.clicks_per_second.get()  # Calculate interval from clicks per second
         while self.running:
@@ -74,10 +87,12 @@ class AutoClicker:
     def start_clicking(self):
         if not self.running:
             self.running = True
+            self.update_status("Autoclicker: On")
             threading.Thread(target=self.click_mouse).start()
 
     def stop_clicking(self):
         self.running = False
+        self.update_status("Autoclicker: Off")
 
     def apply_hotkeys(self):
         # Rebind hotkeys based on user input
@@ -86,9 +101,18 @@ class AutoClicker:
         print(f"Start hotkey set to '{self.start_hotkey.get()}'")
         print(f"Stop hotkey set to '{self.stop_hotkey.get()}'")
 
+    def update_status(self, status_text):
+        """Updates the status overlay with new text."""
+        self.status_label.config(text=status_text)
+        if status_text == "Autoclicker: On":
+            self.status_window.deiconify()  # Show the window
+        else:
+            self.status_window.withdraw()  # Hide the window
+
     def emergency_quit(self):
         """Immediately exits the program."""
         self.running = False
+        self.update_status("Autoclicker: Off")
         self.root.quit()
 
 # Run the Tkinter GUI

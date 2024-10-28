@@ -64,7 +64,7 @@ class AutoClicker:
             elif self.button_choice.get() == "right":
                 mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0)
                 mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0)
-            time.sleep(interval)  # Wait based on clicks per second
+            time.sleep(interval) 
 
     def start_clicking(self):
         if not self.running:

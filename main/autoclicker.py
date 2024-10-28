@@ -58,13 +58,18 @@ class AutoClicker:
     def click_mouse(self):
         interval = 1 / self.clicks_per_second.get()  # Calculate interval from clicks per second
         while self.running:
-            if self.button_choice.get() == "left":
-                mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0)
-                mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
-            elif self.button_choice.get() == "right":
-                mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0)
-                mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0)
-            time.sleep(interval) 
+            if interval > 0:  # Ensure interval is not zero
+                if self.button_choice.get() == "left":
+                    mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0)
+                    time.sleep(0.01)  # Small delay for the click to register
+                    mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
+                elif self.button_choice.get() == "right":
+                    mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0)
+                    time.sleep(0.01)  # Small delay for the click to register
+                    mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0)
+                time.sleep(interval)  # Wait based on clicks per second
+            else:
+                print("Invalid clicks per second setting.")
 
     def start_clicking(self):
         if not self.running:

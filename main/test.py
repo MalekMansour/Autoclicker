@@ -42,12 +42,12 @@ class AutoClicker:
         # Start and Stop hotkeys entry fields
         tk.Label(root, text="Start Hotkey:").pack(pady=5)
         self.start_hotkey_entry = tk.Entry(root)
-        self.start_hotkey_entry.insert(0, "S")  # Default to 'S'
+        self.start_hotkey_entry.insert(0, "S")  
         self.start_hotkey_entry.pack()
 
         tk.Label(root, text="Stop Hotkey:").pack(pady=5)
         self.stop_hotkey_entry = tk.Entry(root)
-        self.stop_hotkey_entry.insert(0, "E")  # Default to 'E'
+        self.stop_hotkey_entry.insert(0, "E")  
         self.stop_hotkey_entry.pack()
 
         # Apply hotkeys button
@@ -66,7 +66,7 @@ class AutoClicker:
         
         # Status label with default "Off" setting
         self.status_label = tk.Label(self.status_window, text="Autoclicker: Off", font=("Arial", 12),
-                                     bg="black", fg="red")  # "Off" text in red
+                                     bg="black", fg="red")  
         self.status_label.pack()
         self.status_window.withdraw()  # Hide initially
 
@@ -92,12 +92,12 @@ class AutoClicker:
     def start_clicking(self):
         if not self.running:
             self.running = True
-            self.update_status("Autoclicker: On", "lime")  # On status in lime color
+            self.update_status("Autoclicker: On", "lime") 
             threading.Thread(target=self.click_mouse).start()
 
     def stop_clicking(self):
         self.running = False
-        self.update_status("Autoclicker: Off", "red")  # Off status in red color
+        self.update_status("Autoclicker: Off", "red")  
 
     def apply_hotkeys(self):
         # Get new hotkeys from the entry fields and update the hotkey codes
@@ -132,7 +132,6 @@ class AutoClicker:
         self.root.quit()
         sys.exit()
 
-# Run the Tkinter GUI
 root = tk.Tk()
 app = AutoClicker(root)
 root.mainloop()

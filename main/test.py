@@ -1,11 +1,10 @@
-# Test File
-
 # Author: Malek Mansour
 
 import tkinter as tk
 import threading
 import time
 import ctypes
+from pynput import keyboard
 
 # Low-level access for mouse events
 SetCursorPos = ctypes.windll.user32.SetCursorPos
@@ -25,7 +24,9 @@ class AutoClicker:
         self.clicks_per_second = tk.DoubleVar(value=1.0)
         self.button_choice = tk.StringVar(value="left")
         self.running = False
-        self.overlay_text = None
+        self.start_key = "s"  # Default start key
+        self.stop_key = "e"   # Default stop key
+        self.listener_thread = None
 
         # Clicks per second setting
         tk.Label(root, text="Clicks per Second:").pack(pady=5)
@@ -36,54 +37,102 @@ class AutoClicker:
         button_options = tk.OptionMenu(root, self.button_choice, "left", "right")
         button_options.pack()
 
-        # Start and Stop buttons
-        tk.Button(root, text="Start (F2)", command=self.start_clicking).pack(pady=5)
-        tk.Button(root, text="Stop (F3)", command=self.stop_clicking).pack(pady=5)
+        # Hotkey settings for Start and Stop
+        tk.Label(root, text="Start Hotkey:").pack(pady=5)
+        self.start_entry = tk.Entry(root)
+        self.start_entry.insert(0, self.start_key)
+        self.start_entry.pack()
+        
+        tk.Label(root, text="Stop Hotkey:").pack(pady=5)
+        self.stop_entry = tk.Entry(root)
+        self.stop_entry.insert(0, self.stop_key)
+        self.stop_entry.pack()
 
-        # Bind hotkeys for starting and stopping
-        root.bind("<F2>", lambda e: self.start_clicking())  # Start on F2
-        root.bind("<F3>", lambda e: self.stop_clicking())   # Stop on F3
-        root.bind("<Shift-KeyPress-Q>", lambda e: self.emergency_quit())  # Emergency quit
+        # Start and Stop buttons
+        tk.Button(root, text="Start", command=self.start_clicking).pack(pady=5)
+        tk.Button(root, text="Stop", command=self.stop_clicking).pack(pady=5)
+
+        # Apply Hotkeys button
+        tk.Button(root, text="Apply Hotkeys", command=self.apply_hotkeys).pack(pady=10)
+
+        # Overlay window for status display
+        self.status_window = tk.Toplevel(root)
+        self.status_window.overrideredirect(True)
+        self.status_window.attributes("-topmost", True)
+        self.status_window.geometry("150x30+10+10")
+        self.status_window.configure(bg="black")
+        
+        # Status label with default setting
+        self.status_label = tk.Label(self.status_window, text="Autoclicker: Off", font=("Arial", 12),
+                                     bg="black", fg="lime")
+        self.status_label.pack()
+        self.status_window.withdraw()  # Hide initially
+
+        # Start the listener for global hotkeys
+        self.listener_thread = threading.Thread(target=self.start_listener)
+        self.listener_thread.daemon = True
+        self.listener_thread.start()
 
     def click_mouse(self):
-        interval = 1 / self.clicks_per_second.get()  # Calculate interval from clicks per second
-        self.show_status("Autoclicker: ON")
-        
+        interval = 1 / self.clicks_per_second.get()  
         while self.running:
-            if self.button_choice.get() == "left":
-                mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0)
-                mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
-            elif self.button_choice.get() == "right":
-                mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0)
-                mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0)
-            time.sleep(interval)  # Wait based on clicks per second
-        
-        self.show_status("Autoclicker: OFF")
+            if interval > 0:
+                if self.button_choice.get() == "left":
+                    mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0)
+                    time.sleep(0.01)
+                    mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
+                elif self.button_choice.get() == "right":
+                    mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0)
+                    time.sleep(0.01)
+                    mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0)
+                time.sleep(interval)
+            else:
+                print("Invalid clicks per second setting.")
 
     def start_clicking(self):
         if not self.running:
             self.running = True
+            self.update_status("Autoclicker: On")
             threading.Thread(target=self.click_mouse).start()
 
     def stop_clicking(self):
         self.running = False
+        self.update_status("Autoclicker: Off")
+
+    def apply_hotkeys(self):
+        # Get and set new hotkeys
+        self.start_key = self.start_entry.get()
+        self.stop_key = self.stop_entry.get()
+        print(f"Start hotkey set to '{self.start_key}'")
+        print(f"Stop hotkey set to '{self.stop_key}'")
+
+    def update_status(self, status_text):
+        """Updates the status overlay with new text."""
+        self.status_label.config(text=status_text)
+        if status_text == "Autoclicker: On":
+            self.status_window.deiconify()  # Show the window
+        else:
+            self.status_window.withdraw()  # Hide the window
+
+    def start_listener(self):
+        # Listener for global hotkeys
+        def on_press(key):
+            try:
+                if key.char == self.start_key:
+                    self.start_clicking()
+                elif key.char == self.stop_key:
+                    self.stop_clicking()
+            except AttributeError:
+                pass
+
+        with keyboard.Listener(on_press=on_press) as listener:
+            listener.join()
 
     def emergency_quit(self):
         """Immediately exits the program."""
         self.running = False
+        self.update_status("Autoclicker: Off")
         self.root.quit()
-
-    def show_status(self, text):
-        """Display or update the autoclicker's status in a small, persistent overlay window."""
-        if self.overlay_text is None:
-            self.overlay_text = tk.Toplevel(self.root)
-            self.overlay_text.overrideredirect(True)  # Remove window decorations
-            self.overlay_text.geometry("+10+10")  # Position overlay at top-left corner
-            label = tk.Label(self.overlay_text, text=text, font=("Arial", 12), fg="red", bg="white")
-            label.pack()
-        else:
-            for widget in self.overlay_text.winfo_children():
-                widget.config(text=text)
 
 # Run the Tkinter GUI
 root = tk.Tk()

@@ -30,8 +30,8 @@ class AutoClicker:
         self.button_choice = tk.StringVar(value="left")
         self.running = False
         self.hotkeys_thread = None
-        self.hotkey_start = 0x53  # ASCII code for 'S'
-        self.hotkey_stop = 0x45   # ASCII code for 'E'
+        self.hotkey_start = ord("S")  # Default start hotkey (ASCII code for 'S')
+        self.hotkey_stop = ord("E")   # Default stop hotkey (ASCII code for 'E')
 
         # Clicks per second setting
         tk.Label(root, text="Clicks per Second:").pack(pady=5)
@@ -42,9 +42,19 @@ class AutoClicker:
         button_options = tk.OptionMenu(root, self.button_choice, "left", "right")
         button_options.pack()
 
-        # Start and Stop hotkeys
-        tk.Label(root, text="Start Hotkey (S):").pack(pady=5)
-        tk.Label(root, text="Stop Hotkey (E):").pack(pady=5)
+        # Start and Stop hotkeys entry fields
+        tk.Label(root, text="Start Hotkey:").pack(pady=5)
+        self.start_hotkey_entry = tk.Entry(root)
+        self.start_hotkey_entry.insert(0, "S")  # Default to 'S'
+        self.start_hotkey_entry.pack()
+
+        tk.Label(root, text="Stop Hotkey:").pack(pady=5)
+        self.stop_hotkey_entry = tk.Entry(root)
+        self.stop_hotkey_entry.insert(0, "E")  # Default to 'E'
+        self.stop_hotkey_entry.pack()
+
+        # Apply hotkeys button
+        tk.Button(root, text="Apply Hotkeys", command=self.apply_hotkeys).pack(pady=5)
 
         # Start and Stop buttons
         tk.Button(root, text="Start", command=self.start_clicking).pack(pady=5)
@@ -90,6 +100,20 @@ class AutoClicker:
     def stop_clicking(self):
         self.running = False
         self.update_status("Autoclicker: Off")
+
+    def apply_hotkeys(self):
+        # Get new hotkeys from the entry fields and update the hotkey codes
+        start_key = self.start_hotkey_entry.get().upper()
+        stop_key = self.stop_hotkey_entry.get().upper()
+        
+        # Ensure that keys are a single character and update
+        if len(start_key) == 1:
+            self.hotkey_start = ord(start_key)
+            print(f"Start hotkey set to '{start_key}'")
+        
+        if len(stop_key) == 1:
+            self.hotkey_stop = ord(stop_key)
+            print(f"Stop hotkey set to '{stop_key}'")
 
     def monitor_hotkeys(self):
         while True:

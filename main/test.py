@@ -126,10 +126,7 @@ class AutoClicker:
     def update_status(self, status_text, color):
         """Updates the status overlay with new text and color."""
         self.status_label.config(text=status_text, fg=color)
-        if status_text == "Autoclicker: On":
-            self.status_window.deiconify()  # Show the window
-        else:
-            self.status_window.withdraw()  # Hide the window
+        self.status_window.deiconify()
 
     def emergency_quit(self):
         """Immediately exits the program."""

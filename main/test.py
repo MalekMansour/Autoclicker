@@ -26,7 +26,7 @@ class AutoClicker:
         self.root.geometry("350x300")
         
         # Variables for click rate, button choice, and click status
-        self.clicks_per_second = tk.DoubleVar(value=1.0)
+        self.clicks_per_second = tk.DoubleVar(value=100.0) # 100 BY DEFAULT
         self.button_choice = tk.StringVar(value="left")
         self.running = False
         self.hotkeys_thread = None

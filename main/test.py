@@ -67,8 +67,9 @@ class AutoClicker:
         self.status_window.geometry("150x30+10+10")
         self.status_window.configure(bg="black")
         
+        # Status label with default "Off" setting
         self.status_label = tk.Label(self.status_window, text="Autoclicker: Off", font=("Arial", 12),
-                                     bg="black", fg="lime")
+                                     bg="black", fg="red")  # "Off" text in red
         self.status_label.pack()
         self.status_window.withdraw()  # Hide initially
 
@@ -94,19 +95,18 @@ class AutoClicker:
     def start_clicking(self):
         if not self.running:
             self.running = True
-            self.update_status("Autoclicker: On")
+            self.update_status("Autoclicker: On", "lime")  # On status in lime color
             threading.Thread(target=self.click_mouse).start()
 
     def stop_clicking(self):
         self.running = False
-        self.update_status("Autoclicker: Off")
+        self.update_status("Autoclicker: Off", "red")  # Off status in red color
 
     def apply_hotkeys(self):
         # Get new hotkeys from the entry fields and update the hotkey codes
         start_key = self.start_hotkey_entry.get().upper()
         stop_key = self.stop_hotkey_entry.get().upper()
         
-        # Ensure that keys are a single character and update
         if len(start_key) == 1:
             self.hotkey_start = ord(start_key)
             print(f"Start hotkey set to '{start_key}'")
@@ -123,18 +123,18 @@ class AutoClicker:
                 self.stop_clicking()
             time.sleep(0.1)
 
-    def update_status(self, status_text):
-        """Updates the status overlay with new text."""
-        self.status_label.config(text=status_text)
+    def update_status(self, status_text, color):
+        """Updates the status overlay with new text and color."""
+        self.status_label.config(text=status_text, fg=color)
         if status_text == "Autoclicker: On":
-            self.status_window.deiconify()
+            self.status_window.deiconify()  # Show the window
         else:
-            self.status_window.withdraw()
+            self.status_window.withdraw()  # Hide the window
 
     def emergency_quit(self):
         """Immediately exits the program."""
         self.running = False
-        self.update_status("Autoclicker: Off")
+        self.update_status("Autoclicker: Off", "red")
         self.root.quit()
         sys.exit()
 

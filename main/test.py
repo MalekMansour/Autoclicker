@@ -7,7 +7,6 @@ import time
 import ctypes
 import sys
 
-# Low-level access for mouse events
 SetCursorPos = ctypes.windll.user32.SetCursorPos
 mouse_event = ctypes.windll.user32.mouse_event
 MOUSEEVENTF_LEFTDOWN = 0x0002  
@@ -15,7 +14,6 @@ MOUSEEVENTF_LEFTUP = 0x0004
 MOUSEEVENTF_RIGHTDOWN = 0x0008  
 MOUSEEVENTF_RIGHTUP = 0x0010   
 
-# Function to get the state of a specific key
 def is_key_pressed(key_code):
     return ctypes.windll.user32.GetAsyncKeyState(key_code) & 0x8000 != 0
 
@@ -25,13 +23,12 @@ class AutoClicker:
         self.root.title("AutoClicker")
         self.root.geometry("350x300")
         
-        # Variables for click rate, button choice, and click status
-        self.clicks_per_second = tk.DoubleVar(value=100.0) # 100 BY DEFAULT
+        self.clicks_per_second = tk.DoubleVar(value=100.0) # 100 Clickers per second BY DEFAULT
         self.button_choice = tk.StringVar(value="left")
         self.running = False
         self.hotkeys_thread = None
-        self.hotkey_start = ord("S")  # Default start hotkey (ASCII code for 'S')
-        self.hotkey_stop = ord("E")   # Default stop hotkey (ASCII code for 'E')
+        self.hotkey_start = ord("S")  
+        self.hotkey_stop = ord("E")   
 
         # Clicks per second setting
         tk.Label(root, text="Clicks per Second:").pack(pady=5)

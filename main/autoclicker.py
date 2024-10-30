@@ -20,9 +20,12 @@ class AutoClicker:
     def __init__(self, root):
         self.root = root
         self.root.title("AutoClicker")
-        self.root.geometry("350x300")
+        self.root.geometry("350x350")
         
-        self.clicks_per_second = tk.DoubleVar(value=100.0) # 100 Clickers per second BY DEFAULT
+        # Set the application icon
+        self.root.iconbitmap("main/assets/logo.ico")  
+
+        self.clicks_per_second = tk.DoubleVar(value=100.0)  # 100 Clicks per second BY DEFAULT
         self.button_choice = tk.StringVar(value="left")
         self.running = False
         self.hotkeys_thread = None

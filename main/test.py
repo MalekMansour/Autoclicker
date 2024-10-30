@@ -21,10 +21,10 @@ class AutoClicker:
     def __init__(self, root):
         self.root = root
         self.root.title("AutoClicker")
-        self.root.geometry("350x350")
+        self.root.geometry("350x300")
         
         # Set the application icon
-        self.root.iconbitmap("main/assets/logo.ico")  
+        self.root.iconbitmap("assets/logo.ico")  # Make sure this path points to your .ico file
 
         self.clicks_per_second = tk.DoubleVar(value=100.0)  # 100 Clicks per second BY DEFAULT
         self.button_choice = tk.StringVar(value="left")
@@ -103,7 +103,6 @@ class AutoClicker:
         self.update_status("Autoclicker: Off", "red")  
 
     def apply_hotkeys(self):
-        # Get new hotkeys from the entry fields and update the hotkey codes
         start_key = self.start_hotkey_entry.get().upper()
         stop_key = self.stop_hotkey_entry.get().upper()
         
@@ -121,6 +120,8 @@ class AutoClicker:
                 self.start_clicking()
             elif is_key_pressed(self.hotkey_stop):
                 self.stop_clicking()
+            elif is_key_pressed(ctypes.VK_SHIFT) and is_key_pressed(ord('Q')):
+                self.emergency_quit()
             time.sleep(0.1)
 
     def update_status(self, status_text, color):

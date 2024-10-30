@@ -1,7 +1,6 @@
 # Author: Malek Mansour
 
 import tkinter as tk
-from tkinter import PhotoImage  # Import PhotoImage for the logo
 import threading
 import time
 import ctypes
@@ -21,33 +20,36 @@ class AutoClicker:
     def __init__(self, root):
         self.root = root
         self.root.title("AutoClicker")
-        self.root.geometry("350x400")  # Adjusted height to fit logo and controls
+        self.root.geometry("350x300")
+        
+        # Set the application icon
+        self.root.iconbitmap("main/assets/logo.ico")  # Make sure this path points to your .ico file
 
-        # Load the logo
-        self.logo_image = PhotoImage(file="main/assets/logo.png")  # Ensure the path is correct
-        logo_label = tk.Label(root, image=self.logo_image)  # Add label for the logo
-        logo_label.pack(pady=10)  # Display logo with padding at the top
+        self.clicks_per_second = tk.DoubleVar(value=100.0)  # 100 Clicks per second BY DEFAULT
+        self.button_choice = tk.StringVar(value="left")
+        self.running = False
+        self.hotkeys_thread = None
+        self.hotkey_start = ord("S")  
+        self.hotkey_stop = ord("E")   
 
         # Clicks per second setting
         tk.Label(root, text="Clicks per Second:").pack(pady=5)
-        self.clicks_per_second = tk.DoubleVar(value=100.0)  # Default clicks per second
         tk.Entry(root, textvariable=self.clicks_per_second).pack()
 
         # Button choice setting (Left or Right click)
         tk.Label(root, text="Choose Button to Press:").pack(pady=5)
-        self.button_choice = tk.StringVar(value="left")
         button_options = tk.OptionMenu(root, self.button_choice, "left", "right")
         button_options.pack()
 
         # Start and Stop hotkeys entry fields
         tk.Label(root, text="Start Hotkey:").pack(pady=5)
         self.start_hotkey_entry = tk.Entry(root)
-        self.start_hotkey_entry.insert(0, "S")
+        self.start_hotkey_entry.insert(0, "S")  
         self.start_hotkey_entry.pack()
 
         tk.Label(root, text="Stop Hotkey:").pack(pady=5)
         self.stop_hotkey_entry = tk.Entry(root)
-        self.stop_hotkey_entry.insert(0, "E")
+        self.stop_hotkey_entry.insert(0, "E")  
         self.stop_hotkey_entry.pack()
 
         # Apply hotkeys button
@@ -66,7 +68,7 @@ class AutoClicker:
         
         # Status label with default "Off" setting
         self.status_label = tk.Label(self.status_window, text="Autoclicker: Off", font=("Arial", 12),
-                                     bg="black", fg="red")
+                                     bg="black", fg="red")  
         self.status_label.pack()
         self.status_window.withdraw()  # Hide initially
 
@@ -92,14 +94,15 @@ class AutoClicker:
     def start_clicking(self):
         if not self.running:
             self.running = True
-            self.update_status("Autoclicker: On", "lime")
+            self.update_status("Autoclicker: On", "lime") 
             threading.Thread(target=self.click_mouse).start()
 
     def stop_clicking(self):
         self.running = False
-        self.update_status("Autoclicker: Off", "red")
+        self.update_status("Autoclicker: Off", "red")  
 
     def apply_hotkeys(self):
+        # Get new hotkeys from the entry fields and update the hotkey codes
         start_key = self.start_hotkey_entry.get().upper()
         stop_key = self.stop_hotkey_entry.get().upper()
         
@@ -120,10 +123,12 @@ class AutoClicker:
             time.sleep(0.1)
 
     def update_status(self, status_text, color):
+        """Updates the status overlay with new text and color."""
         self.status_label.config(text=status_text, fg=color)
         self.status_window.deiconify()
 
     def emergency_quit(self):
+        """Immediately exits the program."""
         self.running = False
         self.update_status("Autoclicker: Off", "red")
         self.root.quit()

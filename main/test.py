@@ -24,7 +24,7 @@ class AutoClicker:
         self.root.geometry("350x400")  # Adjusted height to fit logo and controls
 
         # Load the logo
-        self.logo_image = PhotoImage(file="assets/logo.png")  # Ensure the path is correct
+        self.logo_image = PhotoImage(file="main/assets/logo.png")  # Ensure the path is correct
         logo_label = tk.Label(root, image=self.logo_image)  # Add label for the logo
         logo_label.pack(pady=10)  # Display logo with padding at the top
 

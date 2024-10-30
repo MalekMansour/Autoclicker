@@ -20,7 +20,7 @@ class AutoClicker:
     def __init__(self, root):
         self.root = root
         self.root.title("AutoClicker")
-        self.root.geometry("350x300")
+        self.root.geometry("350x350")
         
         # Set the application icon
         self.root.iconbitmap("main/assets/logo.ico")  

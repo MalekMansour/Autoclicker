@@ -24,7 +24,7 @@ class AutoClicker:
         self.root.geometry("350x300")
         
         # Set the application icon
-        self.root.iconbitmap("assets/logo.ico")  # Make sure this path points to your .ico file
+        self.root.iconbitmap("main/assets/logo.ico")  
 
         self.clicks_per_second = tk.DoubleVar(value=100.0)  # 100 Clicks per second BY DEFAULT
         self.button_choice = tk.StringVar(value="left")

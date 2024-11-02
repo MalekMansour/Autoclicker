@@ -12,3 +12,11 @@ An autoclicker application with customizable click speed, hotkeys, and button ch
 
 ![Main Window](assets/screenshot1.png)  
 *Main application window with options for customizing settings*
+
+
+## Installation
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/MalekMansour/Autoclicker
+   cd AutoClicker

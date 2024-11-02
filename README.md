@@ -1,4 +1,6 @@
-X# AutoClicker
+# AutoClicker
+# Author: Malek Mansour
+# Version: 3.0.1
 
 ![AutoClicker Logo](main/Xassets/logo.png)
 

@@ -28,3 +28,33 @@ An autoclicker application with customizable click speed, hotkeys, and button ch
    ```bash
    python autoclicker.py
    ```
+
+## Usage
+
+1. **Configure Settings**:
+   - Set the clicks per second.
+   - Choose between left or right mouse clicks.
+   - Customize the start and stop hotkeys by entering your preferred keys and clicking "Apply Hotkeys."
+
+2. **Starting and Stopping**:
+   - Use the Start hotkey or the "Start" button to begin clicking.
+   - Use the Stop hotkey or the "Stop" button to end clicking.
+
+## Contributing
+
+1. **Fork the repository**.
+2. Create a new branch:
+   ```bash
+   git checkout -b my-feature
+   ```
+3. Make your changes and commit:
+   ```bash
+   git commit -m "Add my feature"
+   ```
+4. Push to the branch:
+   ```bash
+   git push origin my-feature
+   ```
+5. Open a pull request.
+
+---

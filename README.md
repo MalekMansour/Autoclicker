@@ -1,10 +1,10 @@
+# AutoClicker ![AutoClicker Logo](main/assets/logo.png | width=40)
+
 # AutoClicker
 # Author: Malek Mansour
 # Version: 3.0.1
 ![Main Window](main/screenshots/screenshot1.png)  
 *Main application window with options for customizing settings*
-
-![AutoClicker Logo](main/assets/logo.png)
 
 An autoclicker application with customizable click speed, hotkeys, and button choice. The autoclicker runs on Windows and allows users to set hotkeys to start/stop the clicking process, with a quick emergency quit option. Written in Python using Tkinter for the GUI.
 

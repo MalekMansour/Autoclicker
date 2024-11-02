@@ -1,5 +1,3 @@
-# Autoclicker
- Autoclicker using Python
+# AutoClicker
 
-# Author
-Malek Mansour
+![AutoClicker Logo](assets/logo.png)

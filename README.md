@@ -1,9 +1,11 @@
-# AutoClicker ![AutoClicker Logo](main/assets/logo.png | width=40)
+<img src="main/assets/logo.png" alt="AutoClicker Logo" width="40" align="left" style="margin-right: 10px;"/>
+# Autoclicker
 
 *Author: Malek Mansour*  
 *Version: 3.0.1*
 
 ![Main Window](main/screenshots/screenshot1.png)  
+
 *Main application window with options for customizing settings*
 
 

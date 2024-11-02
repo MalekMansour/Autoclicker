@@ -16,9 +16,23 @@ An autoclicker application with customizable click speed, hotkeys, and button ch
 
 ## Installation
 
-1. **Clone the repository**:
+**Clone the repository**:
    ```bash
    git clone https://github.com/MalekMansour/Autoclicker
    cd AutoClicker
    cd main
    python autoclicker.py
+
+Configure settings:
+
+Set the clicks per second.
+Choose between left or right mouse clicks.
+Customize the start and stop hotkeys by entering your preferred keys and clicking "Apply Hotkeys."
+
+## Contributing
+
+Fork the repository.
+Create a new branch: git checkout -b my-feature
+Make your changes and commit: git commit -m 'Add my feature'
+Push to the branch: git push origin my-feature
+Open a pull request.

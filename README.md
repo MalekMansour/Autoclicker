@@ -11,8 +11,7 @@ An autoclicker application with customizable click speed, hotkeys, and button ch
 - Status overlay showing whether the autoclicker is active
 
 ![Main Window](screenshots/screenshot1.png)  
-*Main application window with options for customizing settings*
-
+*Main application window with options for customizing settings*X
 
 ## Installation
 

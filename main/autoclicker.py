@@ -72,7 +72,7 @@ class AutoClicker:
         self.status_label.pack()
         self.status_window.withdraw()  # Hide initially
 
-        # Start monitoring for hotkeys in a separate thread
+        # Start monitoring for hotkeys in a separate thread 
         self.hotkeys_thread = threading.Thread(target=self.monitor_hotkeys)
         self.hotkeys_thread.daemon = True
         self.hotkeys_thread.start()
@@ -102,7 +102,6 @@ class AutoClicker:
         self.update_status("Autoclicker: Off", "red")  
 
     def apply_hotkeys(self):
-        # Get new hotkeys from the entry fields and update the hotkey codes
         start_key = self.start_hotkey_entry.get().upper()
         stop_key = self.stop_hotkey_entry.get().upper()
         

@@ -72,7 +72,6 @@ class AutoClicker:
         self.status_label.pack()
         self.status_window.withdraw()  # Hide initially
 
-        # Start monitoring for hotkeys in a separate thread 
         self.hotkeys_thread = threading.Thread(target=self.monitor_hotkeys)
         self.hotkeys_thread.daemon = True
         self.hotkeys_thread.start()
@@ -125,13 +124,6 @@ class AutoClicker:
         """Updates the status overlay with new text and color."""
         self.status_label.config(text=status_text, fg=color)
         self.status_window.deiconify()
-
-    def emergency_quit(self):
-        """Immediately exits the program."""
-        self.running = False
-        self.update_status("Autoclicker: Off", "red")
-        self.root.quit()
-        sys.exit()
 
 root = tk.Tk()
 app = AutoClicker(root)

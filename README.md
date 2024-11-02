@@ -20,3 +20,5 @@ An autoclicker application with customizable click speed, hotkeys, and button ch
    ```bash
    git clone https://github.com/MalekMansour/Autoclicker
    cd AutoClicker
+   cd main
+   python autoclicker.py

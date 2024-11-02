@@ -9,3 +9,6 @@ An autoclicker application with customizable click speed, hotkeys, and button ch
 - Choice of left or right mouse button clicks
 - Start and stop hotkeys, with the ability to customize keybinds
 - Status overlay showing whether the autoclicker is active
+
+![Main Window](assets/screenshot1.png)  
+*Main application window with options for customizing settings*

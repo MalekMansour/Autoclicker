@@ -21,7 +21,7 @@ class AutoClicker:
     def __init__(self, root):
         self.root = root
         self.root.title("AutoClicker")
-        self.root.geometry("350x300")
+        self.root.geometry("250x250")
         
         # Set the application icon
         self.root.iconbitmap("main/assets/logo.ico")  
@@ -69,7 +69,6 @@ class AutoClicker:
         self.status_label.pack()
         self.status_window.withdraw()  # Hide initially
 
-        # Start monitoring for hotkeys in a separate thread
         self.hotkeys_thread = threading.Thread(target=self.monitor_hotkeys)
         self.hotkeys_thread.daemon = True
         self.hotkeys_thread.start()
@@ -116,21 +115,12 @@ class AutoClicker:
                 self.start_clicking()
             elif is_key_pressed(self.hotkey_stop):
                 self.stop_clicking()
-            elif is_key_pressed(ctypes.VK_SHIFT) and is_key_pressed(ord('Q')):
-                self.emergency_quit()
             time.sleep(0.1)
 
     def update_status(self, status_text, color):
         """Updates the status overlay with new text and color."""
         self.status_label.config(text=status_text, fg=color)
         self.status_window.deiconify()
-
-    def emergency_quit(self):
-        """Immediately exits the program."""
-        self.running = False
-        self.update_status("Autoclicker: Off", "red")
-        self.root.quit()
-        sys.exit()
 
 root = tk.Tk()
 app = AutoClicker(root)

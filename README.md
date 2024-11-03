@@ -35,10 +35,6 @@ An autoclicker application with customizable click speed, hotkeys, and button ch
    - Choose between left or right mouse clicks.
    - Customize the start and stop hotkeys by entering your preferred keys and clicking "Apply Hotkeys."
 
-2. **Starting and Stopping**:
-   - Use the Start hotkey or the "Start" button to begin clicking.
-   - Use the Stop hotkey or the "Stop" button to end clicking.
-
 ## Contributing
 
 1. **Fork the repository**.

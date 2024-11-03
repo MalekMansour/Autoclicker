@@ -5,7 +5,7 @@
 *Author: Malek Mansour*  
 *Version: 3.2.3*
 
-![Main Window](main/screenshots/screenshot2.png)  
+![Main Window](main/screenshots/screenshot_01.png)  
 An autoclicker application with customizable click speed, hotkeys, and button choice. The autoclicker runs on Windows and allows users to set hotkeys to start/stop.
 
 ## Features

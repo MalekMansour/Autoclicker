@@ -3,7 +3,7 @@
 <img src="main/assets/logo.png" alt="AutoClicker Logo" width="40" align="left" style="margin-right: 10px;"/>
 
 *Author: Malek Mansour*  
-*Version: 3.0.3*
+*Version: 3.2.3*
 
 ![Main Window](main/screenshots/screenshot2.png)  
 An autoclicker application with customizable click speed, hotkeys, and button choice. The autoclicker runs on Windows and allows users to set hotkeys to start/stop.

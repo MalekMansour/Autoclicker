@@ -20,7 +20,7 @@ class AutoClicker:
     def __init__(self, root):
         self.root = root
         self.root.title("AutoClicker")
-        self.root.geometry("350x350")
+        self.root.geometry("250x250")
         
         # Set the application icon
         self.root.iconbitmap("main/assets/logo.ico")  
@@ -54,10 +54,6 @@ class AutoClicker:
 
         # Apply hotkeys button
         tk.Button(root, text="Apply Hotkeys", command=self.apply_hotkeys).pack(pady=5)
-
-        # Start and Stop buttons
-        tk.Button(root, text="Start", command=self.start_clicking).pack(pady=5)
-        tk.Button(root, text="Stop", command=self.stop_clicking).pack(pady=5)
 
         # Overlay window for status display
         self.status_window = tk.Toplevel(root)
